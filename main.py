@@ -19,12 +19,16 @@ API_BASE = "https://api.radar.game/v1"
 
 console = Console()
 
+# Utils Functions
 def log_success(msg): console.print(f"[green][OK][/green] {msg}")
 def log_error(msg): console.print(f"[red][X][/red] {msg}")
 def log_info(msg): console.print(f"[cyan][!][/cyan] {msg}")
 def clear_console():
     os.system("cls" if platform.system() == "Windows" else "clear")
+def generate_random_string(length=8):
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
+# Get auth token by passing username and password into this function
 def get_token(username, password):
     try:
         response = requests.post(f"{API_BASE}/auth/login", json={"username": username, "password": password})
@@ -39,6 +43,7 @@ def get_token(username, password):
         log_error(f"Login failed: {e}")
         return None
 
+# Get server list and return them
 def get_servers(token):
     try:
         headers = {"Authorization": f"Bearer {token}"}
@@ -52,6 +57,7 @@ def get_servers(token):
         log_error(f"Failed to fetch servers: {e}")
         return []
 
+# Ping server by passing ip into this function
 def ping_server(ip):
     try:
         ip = ip.split(":")[0]
@@ -60,6 +66,7 @@ def ping_server(ip):
     except:
         return None
 
+# Draw server selection menu
 def draw_menu(servers):
     from prompt_toolkit.shortcuts import radiolist_dialog
 
@@ -81,6 +88,7 @@ def draw_menu(servers):
 
     return result
 
+# Get config by passing auth token and server id to this function
 def get_config(token, server_id):
     try:
         headers = {"Authorization": f"Bearer {token}"}
@@ -94,10 +102,8 @@ def get_config(token, server_id):
         log_error(f"Failed to generate config: {e}")
         return None
 
-def generate_random_string(length=8):
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
-
-def save_config_file(config_data, username):
+# Generate valid WireGuard config from api data and open file save window for user
+def save_config_file(config_data):
     try:
         rand = generate_random_string()
         default_name = f"radar-{rand}.conf"
