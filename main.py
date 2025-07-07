@@ -172,7 +172,7 @@ def main():
     if not config:
         return
 
-    save_config_file(config, username)
+    save_config_file(config)
 
 if __name__ == "__main__":
     try:
