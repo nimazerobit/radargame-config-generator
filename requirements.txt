@@ -1,0 +1,5 @@
+requests
+rich
+ping3
+prompt-toolkit
+easygui
