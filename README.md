@@ -1,3 +1,6 @@
+> [!NOTE]
+> The upstream service (radar.game) is permanently offline. This repository is archived and kept strictly for educational, research, and portfolio purposes.
+
 # Radar Game Config Generator
 
 A terminal-based Python tool to authenticate with https://radar.game/, view available servers, check ping and load, and download a ready-to-use WireGuard config without installing RadarGame app on your PC :)
@@ -17,6 +20,3 @@ A terminal-based Python tool to authenticate with https://radar.game/, view avai
 
 3. Run python script:
 	`python main.py` or click on `launch-script.bat` on Windows.
-
-## Author
-- [@nimazerobit](https://t.me/nimazerobit) (Telegram)
